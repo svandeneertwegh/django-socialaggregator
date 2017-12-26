@@ -31,7 +31,7 @@ setup(
         'facebook-sdk',
         'feedparser',
         'google-api-python-client',
-        'django-filebrowser-no-grappelli>=3.5.6'
+        'django-filer>=1.3.0'
     ],
     include_package_data=True,
     zip_safe=False
