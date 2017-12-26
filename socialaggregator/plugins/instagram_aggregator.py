@@ -2,7 +2,7 @@ from instagram.client import InstagramAPI
 from datetime import datetime
 
 from django.conf import settings
-from generic import GenericAggregator
+from .generic import GenericAggregator
 
 
 class Aggregator(GenericAggregator):
@@ -25,7 +25,7 @@ class Aggregator(GenericAggregator):
             data = {'social_id': media.id,
                     'name': 'instagram %s' % media.id,
                     'slug': 'instagram_%s' % media.id,
-                    'ressource_date': media.created_time,
+                    'resource_date': media.created_time,
                     'description': text,
                     'media_url': media.get_standard_resolution_url(),
                     'media_url_type': 'image',

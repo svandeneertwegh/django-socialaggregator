@@ -18,7 +18,7 @@ EDSA_FB_APP_SECRET = 'FILLME'
 # Google+ access keys
 EDSA_GOOGLE_DEVELOPER_KEY = 'FILLME'
 
-# Pagination for ressource list in views
+# Pagination for resource list in views
 EDSA_PAGINATION = 16
 
 # Enabled plugins and their engine
@@ -47,14 +47,14 @@ EDSA_PLUGINS = {
 }
 
 # Used templates
-EDSA_VIEW_TEMPLATE = 'socialaggregator/ressource_list.html'
-EDSA_TAG_TEMPLATE = 'socialaggregator/ressource_list_tag.html'
+EDSA_VIEW_TEMPLATE = 'socialaggregator/resource_list.html'
+EDSA_TAG_TEMPLATE = 'socialaggregator/resource_list_tag.html'
 EDSA_PLUGIN_TEMPLATE = 'socialaggregator/cms_plugin_feed.html'
 
 # Image size limit (in Ko, use 0 for no size limit)
 EDSA_RESSOURCE_IMAGE_SIZE = 0
 
-# Various ressource fields choices
+# Various resource fields choices
 EDSA_RESSOURCE_VIEW_SIZES = (
     ('default', gettext('default')),
     ('xsmall', gettext('Xsmall')),

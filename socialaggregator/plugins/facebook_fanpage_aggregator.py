@@ -1,9 +1,10 @@
-import httplib
+import httplib2
+
 from facebook import GraphAPI
 from datetime import datetime
 
 from django.conf import settings
-from generic import GenericAggregator
+from .generic import GenericAggregator
 
 
 class Aggregator(GenericAggregator):
@@ -14,14 +15,12 @@ class Aggregator(GenericAggregator):
     datetime_format = "%Y-%m-%dT%H:%M:%S+0000"
 
     def init_connector(self):
-        req = httplib.HTTPSConnection('graph.facebook.com')
-        uri = "/oauth/access_token?client_id=%s"\
+        req = httplib2.Http()
+        uri = "https://graph.facebook.com/oauth/access_token?client_id=%s"\
               "&client_secret=%s"\
               "&grant_type=client_credentials" % (self.APP_ID, self.APP_SECRET)
-        req.request("GET", uri)
-        r1 = req.getresponse()
-        data = r1.read()
-        access_token = data.split('=')[1]
+        resp, content = req.request(uri, "GET")
+        access_token = str(content).split('"')[3]
         self.connector = GraphAPI(access_token)
 
     def search(self, query):
@@ -40,7 +39,7 @@ class Aggregator(GenericAggregator):
                 data = {'social_id': post['id'],
                         'name': 'fb fanpage %s' % post['id'],
                         'slug': 'fb_fanpage_%s' % post['id'],
-                        'ressource_date': date,
+                        'resource_date': date,
                         'description': post['message'],
                         'media_url': link,
                         'media_url_type': media_url_type,

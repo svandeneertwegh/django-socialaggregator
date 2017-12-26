@@ -1,0 +1,240 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-26 08:52+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: socialaggregator/admin.py:34
+msgid "Mark selected resources as activated"
+msgstr ""
+
+#: socialaggregator/admin.py:39
+msgid ""
+"Mark selected resources as                                         "
+"unactivated"
+msgstr ""
+
+#: socialaggregator/admin.py:61
+msgid "Duplicate selected resources"
+msgstr ""
+
+#: socialaggregator/admin.py:76
+msgid "Main infos"
+msgstr ""
+
+#: socialaggregator/admin.py:80
+msgid "Extra infos"
+msgstr ""
+
+#: socialaggregator/admin.py:83
+msgid "Social network infos"
+msgstr ""
+
+#: socialaggregator/admin.py:86
+msgid "Display infos"
+msgstr ""
+
+#: socialaggregator/models.py:33 socialaggregator/models.py:48
+#: socialaggregator/models.py:85
+msgid "name"
+msgstr ""
+
+#: socialaggregator/models.py:34 socialaggregator/models.py:52
+#: socialaggregator/models.py:128
+msgid "creation date"
+msgstr ""
+
+#: socialaggregator/models.py:35 socialaggregator/models.py:53
+#: socialaggregator/models.py:86
+msgid "slug"
+msgstr ""
+
+#: socialaggregator/models.py:41
+msgid "feed"
+msgstr ""
+
+#: socialaggregator/models.py:42 socialaggregator/models.py:54
+#: socialaggregator/models.py:99
+msgid "feeds"
+msgstr ""
+
+#: socialaggregator/models.py:49 socialaggregator/models.py:108
+msgid "query"
+msgstr ""
+
+#: socialaggregator/models.py:50 socialaggregator/models.py:105
+msgid "social plugin"
+msgstr ""
+
+#: socialaggregator/models.py:60
+msgid "aggregator"
+msgstr ""
+
+#: socialaggregator/models.py:61
+msgid "aggregators"
+msgstr ""
+
+#: socialaggregator/models.py:87
+msgid "description"
+msgstr ""
+
+#: socialaggregator/models.py:88
+msgid "short description"
+msgstr ""
+
+#: socialaggregator/models.py:89 socialaggregator/settings.py:83
+msgid "image"
+msgstr ""
+
+#: socialaggregator/models.py:90
+msgid "thumbnail"
+msgstr ""
+
+#: socialaggregator/models.py:91
+msgid "media url"
+msgstr ""
+
+#: socialaggregator/models.py:92
+msgid "media url type"
+msgstr ""
+
+#: socialaggregator/models.py:95
+msgid "display priority"
+msgstr ""
+
+#: socialaggregator/models.py:96
+msgid "activate"
+msgstr ""
+
+#: socialaggregator/models.py:97
+msgid "author"
+msgstr ""
+
+#: socialaggregator/models.py:98
+msgid "language"
+msgstr ""
+
+#: socialaggregator/models.py:100
+msgid "resource date"
+msgstr ""
+
+#: socialaggregator/models.py:104
+msgid "social_id"
+msgstr ""
+
+#: socialaggregator/models.py:111
+msgid "favorite"
+msgstr ""
+
+#: socialaggregator/models.py:112
+msgid "view size"
+msgstr ""
+
+#: socialaggregator/models.py:115
+msgid "text display"
+msgstr ""
+
+#: socialaggregator/models.py:118
+msgid "button label"
+msgstr ""
+
+#: socialaggregator/models.py:120
+msgid "button color"
+msgstr ""
+
+#: socialaggregator/models.py:123
+msgid "background color"
+msgstr ""
+
+#: socialaggregator/models.py:125
+msgid "open in new page"
+msgstr ""
+
+#: socialaggregator/models.py:131
+msgid "update date"
+msgstr ""
+
+#: socialaggregator/models.py:133
+msgid "updated"
+msgstr ""
+
+#: socialaggregator/models.py:171
+msgid "resource"
+msgstr ""
+
+#: socialaggregator/models.py:172
+msgid "resources"
+msgstr ""
+
+#: socialaggregator/settings.py:59 socialaggregator/settings.py:68
+msgid "default"
+msgstr ""
+
+#: socialaggregator/settings.py:60
+msgid "Xsmall"
+msgstr ""
+
+#: socialaggregator/settings.py:61
+msgid "small"
+msgstr ""
+
+#: socialaggregator/settings.py:62
+msgid "medium"
+msgstr ""
+
+#: socialaggregator/settings.py:63
+msgid "large"
+msgstr ""
+
+#: socialaggregator/settings.py:64
+msgid "Xlarge"
+msgstr ""
+
+#: socialaggregator/settings.py:69
+msgid "bottom"
+msgstr ""
+
+#: socialaggregator/settings.py:70
+msgid "top"
+msgstr ""
+
+#: socialaggregator/settings.py:74
+msgid "white"
+msgstr ""
+
+#: socialaggregator/settings.py:75
+msgid "black"
+msgstr ""
+
+#: socialaggregator/settings.py:76
+msgid "primary"
+msgstr ""
+
+#: socialaggregator/settings.py:77
+msgid "secondary"
+msgstr ""
+
+#: socialaggregator/settings.py:78
+msgid "tertiary"
+msgstr ""
+
+#: socialaggregator/settings.py:82
+msgid "url"
+msgstr ""
+
+#: socialaggregator/settings.py:84
+msgid "video"
+msgstr ""

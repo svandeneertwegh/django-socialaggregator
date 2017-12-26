@@ -6,7 +6,7 @@ try:
 except ImportError:
     # older django
     from django.template.defaultfilters import slugify
-from generic import GenericAggregator
+from .generic import GenericAggregator
 
 
 class Aggregator(GenericAggregator):
@@ -30,7 +30,7 @@ class Aggregator(GenericAggregator):
             data = {'social_id': feed['id'],
                     'name': feed['title'],
                     'slug': slugify(feed['title']),
-                    'ressource_date': date,
+                    'resource_date': date,
                     'description': content['value'],
                     'language': language,
                     'media_url': feed['link'],

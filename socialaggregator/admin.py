@@ -1,12 +1,12 @@
 """Admin for parrot.gallery"""
-from datetime import datetime
 from django.contrib import admin
 from django.db import IntegrityError
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from socialaggregator.models import Feed
 from socialaggregator.models import Aggregator
-from socialaggregator.models import Ressource
+from socialaggregator.models import Resource
 
 
 class FeedAdmin(admin.ModelAdmin):
@@ -31,12 +31,12 @@ admin.site.register(Aggregator, AggregatorAdmin)
 
 def make_activated(modeladmin, request, queryset):
     queryset.update(activate=True)
-make_activated.short_description = _("Mark selected ressources as activated")
+make_activated.short_description = _("Mark selected resources as activated")
 
 
 def make_unactivated(modeladmin, request, queryset):
     queryset.update(activate=False)
-make_unactivated.short_description = _("Mark selected ressources as \
+make_unactivated.short_description = _("Mark selected resources as \
                                         unactivated")
 
 
@@ -47,7 +47,7 @@ def make_duplicate(modeladmin, request, queryset):
         slug = data.slug + '_copy_%i'
         name = data.name + ' Copy %i'
         ver = 0
-        data.creation_date = datetime.now()
+        data.creation_date = timezone.now
         save = False
         while not save:
             try:
@@ -56,20 +56,20 @@ def make_duplicate(modeladmin, request, queryset):
                 data.update_date = None
                 data.save()
                 save = True
-            except IntegrityError, e:
+            except IntegrityError:
                 ver += 1
-make_duplicate.short_description = _("Duplicate selected ressources")
+make_duplicate.short_description = _("Duplicate selected resources")
 
 
-class RessourceAdmin(admin.ModelAdmin):
-    date_hierarchy = 'ressource_date'
+class ResourceAdmin(admin.ModelAdmin):
+    date_hierarchy = 'resource_date'
     prepopulated_fields = {"slug": ("name",)}
     list_display = ('name', 'author', 'priority', 'view_size', 'language',
-                    'social_type', 'query', 'ressource_date', 'activate',
+                    'social_type', 'query', 'resource_date', 'activate',
                     'updated')
     list_editable = ('priority','view_size','activate',)
     list_filter = ('social_type', 'feeds', 'view_size', 'language', 'activate', 'updated')
-    ordering = ['updated', '-ressource_date', 'query']
+    ordering = ['updated', '-resource_date', 'query']
     exclude = ('updated', 'update_date',)
     actions = [make_activated, make_unactivated, make_duplicate]
     search_fields = ('name', 'author', 'description', 'short_description')
@@ -79,7 +79,7 @@ class RessourceAdmin(admin.ModelAdmin):
                                                'media_url_type','new_page')}),
                  (_('Extra infos'), {'fields': ('priority', 'activate',
                                                 'author', 'language', 'feeds',
-                                                'ressource_date', 'tags')}),
+                                                'resource_date', 'tags')}),
                  (_('Social network infos'), {'fields': ('social_id',
                                                          'social_type',
                                                          'query')}),
@@ -89,4 +89,4 @@ class RessourceAdmin(admin.ModelAdmin):
                                                   'button_color',
                                                   'background_color')}))
 
-admin.site.register(Ressource, RessourceAdmin)
+admin.site.register(Resource, ResourceAdmin)

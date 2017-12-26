@@ -1,14 +1,13 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from socialaggregator.models import Aggregator, Ressource
+from socialaggregator.models import Aggregator, Resource
 
 
 def load_aggregators():
     """dynamical load all plugins aggregator"""
     plugins = {}
     for plugin, data in settings.EDSA_PLUGINS.items():
-        mod = __import__(data['ENGINE'], globals(), locals(), ['Aggregator'],
-                         -1)
+        mod = __import__(data['ENGINE'], globals(), locals(), ['Aggregator'])
         plugins[plugin] = mod.Aggregator()
     return plugins
 
@@ -23,9 +22,9 @@ class Command(BaseCommand):
     # optionellement une aide pour les arguments
     args = 'social_type1, [social_type2], social_type3'
 
-    def record_ressource(self, data, aggr):
-        if not Ressource.objects.filter(social_id=data['social_id']).exists():
-            rce = Ressource(**data)
+    def record_resource(self, data, aggr):
+        if not Resource.objects.filter(social_id=data['social_id']).exists():
+            rce = Resource(**data)
             rce.social_type = aggr.social_plugin
             rce.query = aggr.query
             rce.save()
@@ -44,4 +43,4 @@ class Command(BaseCommand):
             plugin = AGGREGATORS[aggr.social_plugin]
             datas = plugin.search(aggr.query)
             for data in datas:
-                self.record_ressource(data, aggr)
+                self.record_resource(data, aggr)

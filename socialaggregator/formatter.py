@@ -1,9 +1,9 @@
 """
-Formatters for ressource datas
+Formatters for resource datas
 """
-class RessourceFormatterBase(object):
+class ResourceFormatterBase(object):
     """
-    This is a dummy ressource formatter, its method "render" will simply return the
+    This is a dummy resource formatter, its method "render" will simply return the
     given instance, no format is applied here
     """
     def __init__(self, instance):
@@ -12,7 +12,7 @@ class RessourceFormatterBase(object):
     def render(self):
         return self.instance
 
-class RessourceFormatterDefault(RessourceFormatterBase):
+class ResourceFormatterDefault(ResourceFormatterBase):
     """
     Default formatter, its goal is to unify various data types from social networks in
     only one format to avoid to manage many various cases with all social networks
@@ -63,7 +63,7 @@ class RessourceFormatterDefault(RessourceFormatterBase):
         }
 
     def has_subblock(self):
-        return (self.instance.author or self.instance.ressource_date)
+        return (self.instance.author or self.instance.resource_date)
 
     def get_css_classes(self):
         css_classes = []
@@ -133,7 +133,7 @@ class RessourceFormatterDefault(RessourceFormatterBase):
     def get_date(self):
         if self.get_type() == 'youtube':
             return None
-        return self.instance.ressource_date
+        return self.instance.resource_date
 
     def get_image(self):
         if self.instance.image:

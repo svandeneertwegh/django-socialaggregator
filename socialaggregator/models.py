@@ -1,14 +1,13 @@
 """Models for parrot.gallery"""
-from datetime import datetime
+from importlib import import_module
+
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.utils.importlib import import_module
+from filer.fields.image import FilerImageField
 
 from taggit.managers import TaggableManager
-
-#from filer.fields.image import FilerImageField
-from filebrowser.fields import FileBrowseField
 
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
@@ -29,7 +28,7 @@ SOCIAL_PLUGINS = build_social_plugins_list()
 SOCIAL_LIST = settings.EDSA_RESSOURCE_BASE_MEDIA_TYPES + SOCIAL_PLUGINS
 
 class Feed(models.Model):
-    """Model for group ressource by feed"""
+    """Model for group resource by feed"""
 
     name = models.CharField(_('name'), max_length=250)
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
@@ -62,33 +61,33 @@ class Aggregator(models.Model):
         verbose_name_plural = _('aggregators')
 
 
-class RessourceQuerySet(models.query.QuerySet):
+class ResourceQuerySet(models.query.QuerySet):
     def update(self, *args, **kwargs):
-        kwargs['update_date'] = datetime.now()
+        kwargs['update_date'] = timezone.now
         kwargs['updated'] = True
-        super(RessourceQuerySet, self).update(*args, **kwargs)
+        super(ResourceQuerySet, self).update(*args, **kwargs)
 
 
-class RessourceManager(models.Manager):
+class ResourceManager(models.Manager):
     def get_queryset(self):
-        return RessourceQuerySet(self.model, using=self._db)
+        return ResourceQuerySet(self.model, using=self._db)
 
 
-class ActivatedManager(RessourceManager):
+class ActivatedManager(ResourceManager):
     def get_queryset(self):
         queryset = super(ActivatedManager, self).get_queryset()
         return queryset.filter(activate=True)
 
 
-class Ressource(models.Model):
-    """Model representing a ressource"""
-    # ressource main infos
+class Resource(models.Model):
+    """Model representing a resource"""
+    # resource main infos
     name = models.CharField(_('name'), max_length=250)
     slug = models.SlugField(_('slug'), unique=True, max_length=100)
     description = models.TextField(_('description'), blank=True)
     short_description = models.TextField(_('short description'), blank=True)
-    image = FileBrowseField(_('image'), max_length=255, null=True, blank=True, default=None)
-    thumbnail = FileBrowseField(_('thumbnail'), max_length=255, null=True, blank=True, default=None)
+    image = FilerImageField(verbose_name=_('image'), related_name='resource_image', null=True, blank=True, default=None)
+    thumbnail = FilerImageField(verbose_name=_('thumbnail'), related_name='resource_thumbnail', null=True, blank=True, default=None)
     media_url = models.URLField(_('media url'), blank=True, max_length=500)
     media_url_type = models.CharField(_('media url type'), max_length=100,
                                       blank=True, choices=settings.EDSA_RESSOURCE_MEDIA_TYPE)
@@ -98,7 +97,7 @@ class Ressource(models.Model):
     author = models.CharField(_('author'), max_length=250)
     language = models.CharField(_('language'), max_length=2, blank=True)
     feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'))
-    ressource_date = models.DateTimeField(_('ressource date'))
+    resource_date = models.DateTimeField(_('resource date'))
     tags = TaggableManager(blank=True)
 
     # social network info
@@ -127,34 +126,34 @@ class Ressource(models.Model):
 
     # META DATA
     creation_date = models.DateTimeField(_('creation date'),
-                                         default=datetime.now(),
+                                         default=timezone.now,
                                          editable=False)
     update_date = models.DateTimeField(_('update date'),
                                        default=None)
     updated = models.BooleanField(_('updated'), default=False)
 
     # Managers
-    objects = RessourceManager()
+    objects = ResourceManager()
     activated = ActivatedManager()
 
     def save(self, *args, **kwargs):
         if self.update_date and not self.updated:
             self.updated = True
-        self.update_date = datetime.now()
-        super(Ressource, self).save(*args, **kwargs)
+        self.update_date = timezone.now()
+        super(Resource, self).save(*args, **kwargs)
 
     #@models.permalink
     #def get_absolute_url(self):
-        #return ('social_aggregator_ressource_detail', (self.slug,))
+        #return ('social_aggregator_resource_detail', (self.slug,))
 
     def __unicode__(self):
         return self.name
 
     def get_unified_render(self):
         """
-        Get the formatter for ressource datas then return the unified data render
+        Get the formatter for resource datas then return the unified data render
         """
-        formatter_path = getattr(settings, "RESSOURCE_FORMATTER", "socialaggregator.formatter.RessourceFormatterDefault")
+        formatter_path = getattr(settings, "RESSOURCE_FORMATTER", "socialaggregator.formatter.ResourceFormatterDefault")
         dot = formatter_path.rindex('.')
         module_name = formatter_path[:dot]
         class_name = formatter_path[dot + 1:] # Assume last item is the class to load
@@ -169,8 +168,8 @@ class Ressource(models.Model):
 
     class Meta:
         ordering = ('-priority', 'name')
-        verbose_name = _('ressource')
-        verbose_name_plural = _('ressources')
+        verbose_name = _('resource')
+        verbose_name_plural = _('resources')
 
 
 # Optional plugin for DjangoCMS if installed

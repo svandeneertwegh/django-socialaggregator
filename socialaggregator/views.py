@@ -6,7 +6,7 @@ from django.template.response import TemplateResponse
 from django.core import serializers
 from django.conf import settings
 
-from models import Ressource
+from .models import Resource
 
 
 class JSONResponseMixin(object):
@@ -30,13 +30,13 @@ class JSONResponseMixin(object):
         return serializers.serialize("json", context)
 
 
-class RessourceListView(JSONResponseMixin, ListView):
+class ResourceListView(JSONResponseMixin, ListView):
     """
-    Display all ressources for all feeds
+    Display all resources for all feeds
     """
-    model = Ressource
+    model = Resource
     paginate_by = settings.EDSA_PAGINATION
-    queryset = Ressource.activated.order_by('priority', '-ressource_date')
+    queryset = Resource.activated.order_by('priority', '-resource_date')
     template_name = settings.EDSA_VIEW_TEMPLATE
     
     def get_template_names(self):
@@ -45,19 +45,19 @@ class RessourceListView(JSONResponseMixin, ListView):
     def render_to_response(self, context):
         # Look for a 'format=json' GET argument
         if self.request.GET.get('format', 'html') == 'json':
-            context = context['ressource_list']
+            context = context['resource_list']
             return JSONResponseMixin.render_to_response(self, context)
         else:
             self.response_class = TemplateResponse
             return ListView.render_to_response(self, context)
 
 
-class RessourceByFeedListView(RessourceListView):
+class ResourceByFeedListView(ResourceListView):
     """
-    Only display ressources from specified feed
+    Only display resources from specified feed
     """
     def get_queryset(self):
-        queryset = super(RessourceByFeedListView, self).get_queryset()
+        queryset = super(ResourceByFeedListView, self).get_queryset()
         slug = self.kwargs['slug']
         queryset = queryset.filter(feeds__slug=slug)
         return queryset

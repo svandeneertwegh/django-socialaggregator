@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from twitter_aggregator import Aggregator as TwitterAggregator
+from.twitter_aggregator import Aggregator as TwitterAggregator
 
 
 class Aggregator(TwitterAggregator):
@@ -16,7 +16,7 @@ class Aggregator(TwitterAggregator):
                         'name': 'tweet %s' % tweet['id_str'],
                         'slug': 'tweet_%s' % tweet['id_str'],
                         'language': tweet['lang'],
-                        'ressource_date': date,
+                        'resource_date': date,
                         'description': tweet['text'],
                         'author': tweet['user']['name'],
                         }

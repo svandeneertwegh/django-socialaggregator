@@ -1,13 +1,12 @@
 """Urls for emencia-django-socialaggregator"""
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
-from views import RessourceListView
-from views import RessourceByFeedListView
+from .views import ResourceListView
+from .views import ResourceByFeedListView
 
-urlpatterns = patterns(
-    '',
-    url(r'^feed/(?P<slug>[-\w]+)/$', RessourceByFeedListView.as_view(),
-        name='socialaggregator_ressource_by_feed_list_view'),
-    url(r'^$', RessourceListView.as_view(),
-        name='socialaggregator_ressource_list_view'),
-    )
+urlpatterns = [
+    url(r'^feed/(?P<slug>[-\w]+)/$', ResourceByFeedListView.as_view(),
+        name='socialaggregator_resource_by_feed_list_view'),
+    url(r'^$', ResourceListView.as_view(),
+        name='socialaggregator_resource_list_view'),
+]

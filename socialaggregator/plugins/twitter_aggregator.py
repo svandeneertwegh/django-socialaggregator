@@ -3,7 +3,7 @@ from twitter import OAuth
 from datetime import datetime
 
 from django.conf import settings
-from generic import GenericAggregator
+from .generic import GenericAggregator
 
 
 class Aggregator(GenericAggregator):
@@ -28,7 +28,7 @@ class Aggregator(GenericAggregator):
                     'name': 'tweet %s' % tweet['id_str'],
                     'slug': 'tweet_%s' % tweet['id_str'],
                     'language': tweet['lang'],
-                    'ressource_date': datetime.strptime(tweet['created_at'],
+                    'resource_date': datetime.strptime(tweet['created_at'],
                                                         self.datetime_format),
                     'description': tweet['text'],
                     'author': tweet['user']['name'],
