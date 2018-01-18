@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.conf import settings
 from .generic import GenericAggregator
-
+from pytz import timezone
 
 class Aggregator(GenericAggregator):
 
@@ -24,6 +24,11 @@ class Aggregator(GenericAggregator):
         res = self.connector.search.tweets(q=query)
         datas = []
         for tweet in res['statuses']:
+            datetime_ = datetime.strptime(tweet['created_at'], self.datetime_format)
+            if settings.USE_TZ:
+                localtz = timezone(settings.TIME_ZONE)
+                datetime_ = localtz.localize(datetime_)
+
             data = {'social_id': tweet['id_str'],
                     'name': 'tweet %s' % tweet['id_str'],
                     'slug': 'tweet_%s' % tweet['id_str'],
