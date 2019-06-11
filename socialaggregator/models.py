@@ -51,7 +51,7 @@ class Aggregator(models.Model):
                                      choices=SOCIAL_PLUGINS)
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     slug = models.SlugField(_('slug'), unique=True, max_length=100)
-    feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'), on_delete=models.CASCADE)
+    feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'))
 
     def __unicode__(self):
         return self.name
