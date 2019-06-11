@@ -96,7 +96,7 @@ class Resource(models.Model):
     activate = models.BooleanField(_('activate'), default=False)
     author = models.CharField(_('author'), max_length=250)
     language = models.CharField(_('language'), max_length=2, blank=True)
-    feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'), on_delete=models.CASCADE)
+    feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'))
     resource_date = models.DateTimeField(_('resource date'))
     tags = TaggableManager(blank=True)
 
