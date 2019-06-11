@@ -86,8 +86,8 @@ class Resource(models.Model):
     slug = models.SlugField(_('slug'), unique=True, max_length=100)
     description = models.TextField(_('description'), blank=True)
     short_description = models.TextField(_('short description'), blank=True)
-    image = FilerImageField(verbose_name=_('image'), related_name='resource_image', null=True, blank=True, default=None)
-    thumbnail = FilerImageField(verbose_name=_('thumbnail'), related_name='resource_thumbnail', null=True, blank=True, default=None)
+    image = FilerImageField(verbose_name=_('image'), related_name='resource_image', null=True, blank=True, default=None, on_delete=models.CASCADE)
+    thumbnail = FilerImageField(verbose_name=_('thumbnail'), related_name='resource_thumbnail', null=True, blank=True, default=None, on_delete=models.CASCADE)
     media_url = models.URLField(_('media url'), blank=True, max_length=500)
     media_url_type = models.CharField(_('media url type'), max_length=100,
                                       blank=True, choices=settings.EDSA_RESSOURCE_MEDIA_TYPE)
