@@ -51,7 +51,7 @@ class Aggregator(models.Model):
                                      choices=SOCIAL_PLUGINS)
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     slug = models.SlugField(_('slug'), unique=True, max_length=100)
-    feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'))
+    feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'), on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.name
@@ -96,7 +96,7 @@ class Resource(models.Model):
     activate = models.BooleanField(_('activate'), default=False)
     author = models.CharField(_('author'), max_length=250)
     language = models.CharField(_('language'), max_length=2, blank=True)
-    feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'))
+    feeds = models.ManyToManyField(Feed, verbose_name=_('feeds'), on_delete=models.CASCADE)
     resource_date = models.DateTimeField(_('resource date'))
     tags = TaggableManager(blank=True)
 
@@ -179,7 +179,7 @@ except ImportError:
     pass
 else:
     class FeedPlugin(CMSPlugin):
-        feed = models.ForeignKey('socialaggregator.Feed', related_name='plugins')
+        feed = models.ForeignKey('socialaggregator.Feed', related_name='plugins', on_delete=models.CASCADE)
 
         def __unicode__(self):
             return self.feed.name
